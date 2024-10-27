@@ -1,4 +1,4 @@
-# FIRST STATE: define data structure
+# FIRST STATE: defint data structure
 network = {
     'Alice': ['Bob', 'Charlie'],
     'Bob': ['Alice', 'Diana'],
@@ -6,12 +6,25 @@ network = {
     'Diana': ['Bob'],
     'Eve': ['Charlie']
 }
-# SECONDE STATE: DFS
-def DFS(network, start, visited=None):
+
+def DFS(network, start, visited=None, path=None, depth= 0, depths=None):
     if visited is None:
       visited = set()
-      visited.add(start)
-      for following in network[start]:
-            if following not in visited:
-                  DFS(network, following, visited)
+    if path is None:
+         path = []
+    if depths is None:
+         depths = {}
 
+    visited.add(start)
+    path.append(start)
+    depths[start] = depth
+    print(f"{start} at depth {depth}")
+    
+    for following in network[start]:
+        if following not in visited:
+                DFS(network, following, visited, path, depth+1, depths)
+    return path, depths
+
+path, depth_info = DFS(network, 'Alice')
+print("DFS Traversal Path:", path)
+print("Nodes and their Depths:", depth_info)
