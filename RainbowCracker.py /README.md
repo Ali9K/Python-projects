@@ -1,26 +1,2 @@
-import hashlib
-import csv
-
-def hash_password_hack(input_file_name, output_file_name):
-    Dict = {}
-    m = hashlib.sha256("0000".encode())
-    n = m.hexdigest()
-    Dict[n] = "0000"
-
-    for i in range(1000, 10000):
-        i = str(i)
-        m = hashlib.sha256(i.encode())
-        n = m.hexdigest()
-        Dict[n] = i
-
-    with open(input_file_name) as x:
-        reader = csv.reader(x)
-        with open(output_file_name, 'w', newline='') as y:
-            writer = csv.writer(y)
-            
-            for row in reader:
-                name = row[0]
-                hash_value = row[1]
-
-                if hash_value in Dict:
-                    writer.writerow([name, Dict[hash_value]])
+RainbowCracker is a simple tool designed to crack SHA-256 hashed passwords using a rainbow table approach. 
+This project was created as a practice to work with hashing algorithms and understand how they function. It also provides hands-on experience with CSV file handling. The input file should be in CSV format with two columns (name and hash), and the output file will contain the name and the recovered password.
